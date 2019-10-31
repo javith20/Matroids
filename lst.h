@@ -42,16 +42,16 @@
         size_t cap, len;\
     }
 
-#define qvec(T,N)         \
-    struct qvec_##T_##N {   \
+#define qvec(T)         \
+    struct qvec_##T {   \
         qvec_base;      \
         T data[];       \
     }
 
-#define qvec_new(T,N, xs...)                                                         \
+#define qvec_new(T, xs...)                                                         \
 ({                                                                                   \
     const T _xs[] = {xs};                                                            \
-    struct qvec_##T_##N *v = malloc(sizeof(qvec(T,N)) + sizeof(T) * QVEC_ALEN(_xs)); \
+    struct qvec_##T *v = malloc(sizeof(qvec(T)) + sizeof(T) * QVEC_ALEN(_xs)); \
     v->cap = sizeof(_xs) / sizeof(T);                                                \
     v->len = QVEC_ALEN(_xs);                                                         \
                                                                                      \
